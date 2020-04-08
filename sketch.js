@@ -4,7 +4,7 @@ var term1, floor;
 var window1, window2, window3, window4;
 var slingshot, mCons;
 var gameState = "shoot";
-var timesShot = 0;
+var timesShot = 3;
 
 function setup() {
     var canvas = createCanvas(800, 400);
@@ -29,6 +29,11 @@ function draw() {
         eval("window" + i + ".display();")
         eval("window" + i + ".check();")
     }
+    if (timesShot === 3) {
+        image1 = loadImage('assets/gameover.png');
+        image(image1, 400, 200, 225, 225);
+        console.log("\n")
+    }
     if (mouseIsPressed) {
         if (gameState == "shoot") {
             Body.setPosition(term1.body, { 'x': mouseX, 'y': mouseY });
@@ -45,9 +50,11 @@ function mouseReleased() {
 }
 
 function keyPressed() {
-    if (keyCode === ENTER && gameState == "shot" && timesShot <= 3) {
+    if (keyCode === ENTER && gameState == "shot" && timesShot < 3) {
         Body.setPosition(term1.body, { 'x': 120, 'y': 275 });
         slingshot.attach(term1.body);
         gameState = "shoot";
+        timesShot += 1;
+        console.log(timesShot)
     }
 }

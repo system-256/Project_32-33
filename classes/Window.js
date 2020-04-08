@@ -20,7 +20,7 @@ class Window {
     }
 
     check() {
-        if (this.body.position.x < 0) {
+        if (this.body.position.y < 0) {
             this.fallen = true;
         }
     }
