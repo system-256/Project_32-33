@@ -18,10 +18,4 @@ class Window {
         push();
         pop();
     }
-
-    check() {
-        if (this.body.position.y < 0) {
-            this.fallen = true;
-        }
-    }
 }

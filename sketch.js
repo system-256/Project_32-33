@@ -4,7 +4,8 @@ var term1, floor;
 var window1, window2, window3, window4;
 var slingshot, mCons;
 var gameState = "shoot";
-var timesShot = 3;
+var timesShot = 0;
+var quota;
 
 function setup() {
     var canvas = createCanvas(800, 400);
@@ -23,16 +24,15 @@ function setup() {
 function draw() {
     Engine.update(engine);
     background(255, 255, 255);
+
     term1.display();
     floor.display();
     for (var i = 1; i < 5; i++) {
-        eval("window" + i + ".display();")
-        eval("window" + i + ".check();")
+        eval("window" + i + ".display();");
     }
-    if (timesShot === 3) {
-        image1 = loadImage('assets/gameover.png');
-        image(image1, 400, 200, 225, 225);
-        console.log("\n")
+    if (quota == "exceeded") {
+        textSize(45);
+        text("Game Over", 100, 200);
     }
     if (mouseIsPressed) {
         if (gameState == "shoot") {
@@ -50,11 +50,13 @@ function mouseReleased() {
 }
 
 function keyPressed() {
-    if (keyCode === ENTER && gameState == "shot" && timesShot < 3) {
+    if (keyCode === ENTER && gameState == "shot" && timesShot < 2) {
         Body.setPosition(term1.body, { 'x': 120, 'y': 275 });
         slingshot.attach(term1.body);
         gameState = "shoot";
         timesShot += 1;
         console.log(timesShot)
+    } else if (timesShot >= 2) {
+        quota = "exceeded";
     }
 }
